@@ -30,7 +30,7 @@ def possibility():
         I used randint to make the possibility it is not 100 accurete.
     '''
     x = randint(1,100)
-    if x < 16:
+    if x <= 10:
         return 4
     return 2
 
