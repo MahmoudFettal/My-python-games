@@ -80,7 +80,7 @@ class Grid():
         cell  = choice(empty)
         self.grid[cell[0]][cell[1]].value = possibility()
     
-    def make_move(self, move):
+    def swap_zero(self,move):
         moves = [[i, i+1] for i in range(3)]
         codes = {'r':['+','k'],'l':['-','k'],'d':['+','f'],'u':['-','f']}
         flip  = {'k': lambda x,y : (x, y), 'f': lambda x,y : (y, x)}
@@ -105,6 +105,19 @@ class Grid():
                         self.grid[a][b].value, self.grid[n][m].value = self.grid[n][m].value, self.grid[a][b].value
             if zero_sawp == 0:
                 break
+        return swips        
+        
+    def make_move(self, the_move):
+        moves = [[i, i+1] for i in range(3)]
+        codes = {'r':['+','k'],'l':['-','k'],'d':['+','f'],'u':['-','f']}
+        flip  = {'k': lambda x,y : (x, y), 'f': lambda x,y : (y, x)}
+        swips = 0
+
+        direction, way = codes[the_move]
+        if direction == '+':
+            moves = moves[::-1]
+        
+        swips += self.swap_zero(the_move)
 
         for x in range(4):
             i = 0
@@ -123,24 +136,11 @@ class Grid():
                         self.grid[n][m].merge(self.grid[a][b])
                     swips += 1
                 i += 1
-        
-        while True:
-            zero_sawp = 0
-            for x in range(4):
-                for move in moves:
-                    a,b = flip[way](x, move[0])
-                    n,m = flip[way](x, move[1])
-                    if self.grid[n][m].value == 0 and  self.grid[a][b].value != 0  and direction == '+':
-                        swips += 1
-                        zero_sawp += 1
-                        self.grid[a][b].value, self.grid[n][m].value = self.grid[n][m].value, self.grid[a][b].value
-                    if self.grid[a][b].value == 0 and  self.grid[n][m].value != 0  and direction == '-':
-                        swips += 1
-                        zero_sawp += 1
-                        self.grid[a][b].value, self.grid[n][m].value = self.grid[n][m].value, self.grid[a][b].value
-            if zero_sawp == 0:
-                break
+
+        swips += self.swap_zero(the_move)
+
         return swips
+
     def swips_test(self,i,j,move):
         if self.grid[i][j].value == 0:
             return False
