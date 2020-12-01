@@ -15,7 +15,7 @@ class Game():
         self.grid  = Grid()
         self.ended = False
 
-    def update(self,screen):
+    def update(self,screen, over = False):
         screen.fill(Settings.bg_color)
         for i in range(4):
             for j in range(4):
@@ -25,6 +25,8 @@ class Game():
         screen.blit(pygame.image.load(os.path.join('frames','new game.png')), Settings.positions['button'])
         screen.blit(pygame.image.load(os.path.join('frames','background.png')), Settings.positions['score'])
         self.display_score(screen)
+        if over:
+            screen.blit(pygame.image.load(os.path.join('frames','game_over.png')), Settings.positions['grid'])
         clock = pygame.time.Clock()
         clock.tick(5)
         pygame.display.flip()
@@ -58,7 +60,7 @@ class Game():
                     self.play()
 
     def play(self):
-        print('welcome! to 2048 build by smauj')
+        #print('welcome! to 2048 build by smauj')
         pygame.init()
         pygame.display.set_caption('2048')
 
@@ -83,13 +85,24 @@ class Game():
                 if not(the_move == None) and self.grid.make_move(the_move):
                     break
             if self.ended:
-                print(f'Game, Over!, your score was {self.grid.score}')
+                self.update(screen, True)
+                while True:
+                    for event in pygame.event.get():
+                        if event.type == pygame.QUIT:
+                            sys.exit()
+                        elif event.type == pygame.MOUSEBUTTONDOWN:
+                            pos = pygame.mouse.get_pos()
+                            if 460 <= pos[0] <=620 and 35 <= pos[1] <= 75:
+                                self.grid = Grid()
+                                self.play()
+
+                #print(f'Game, Over!, your score was {self.grid.score}')
                 break
-            print(f' move {self.grid.move} '.center(len(f'your score is {self.grid.score}')))
-            print(f'your score is {self.grid.score}')
+            #print(f' move {self.grid.move} '.center(len(f'your score is {self.grid.score}')))
+            #print(f'your score is {self.grid.score}')
             self.update(screen)
             self.grid.move += 1
-        print('Good Bye, see you next time!')
+        #print('Good Bye, see you next time!')
 
 if __name__ == "__main__":
     game = Game()
