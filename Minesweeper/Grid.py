@@ -2,11 +2,14 @@ from random import randint
 import pygame, os
 
 class Settings():
-    def _init_(self, lines, columns):
+    def __init__(self, lines, columns):
         self.lines   = lines
         self.columns = columns
-        self.screen_size = (21*self.lines, 21*self.columns) 
+        self.screen_size = (105*self.lines, 105*self.columns) 
+        self.frames = ['U'] + list(map(str,range(9)))
+        print(self.frames)        
         self.frames      = {frame : pygame.image.load(os.path.join('frames',f'{frame}.png')) for frame in ['U'] + list(map(str,range(9)))}
+
 
 class Cell():
     def __init__(self):
@@ -27,6 +30,9 @@ class Grid():
         self.grid    = [[Cell() for _ in range(columns)] for _ in range(lines)]
         self.zeros   = []
         self.over    = False
+        self.coords  = [[-1, -1],[-1, 0], [-1, 1],
+                        [ 0, -1],         [0, 1 ],
+                        [ 1, -1], [1, 0], [1, 1 ]]
 
     def fill_mines(self):
         self.mines   = []
@@ -39,9 +45,6 @@ class Grid():
                     break
 
     def neighbours(self,i,j):
-        self.coords = [[-1, -1],[-1, 0], [-1, 1],
-                  [ 0, -1],         [0, 1 ],
-                  [ 1, -1], [1, 0], [1, 1 ]]
         for x,y in self.coords:
             x,y = i+x,j+y
             if 0 <= x < self.lines and 0 <= y < self.columns and not self.grid[x][y].mine:
@@ -72,13 +75,13 @@ class Grid():
             self.uncover(x,y)
 
     def show(self):
-        self.mines_contact()
-        print('\n'.join([' '.join([str(j.contact) for j in i]) for i in self.grid]))    
+        #self.mines_contact()
+        #print('\n'.join([' '.join([str(j.contact) for j in i]) for i in self.grid]))    
+        #print('\n'.join([' '.join(list(map(str,i))) for i in self.grid])) 
+        #while not self.over:
+            #self.make_move()
         print('\n'.join([' '.join(list(map(str,i))) for i in self.grid])) 
-        while not self.over:
-            self.make_move()
-            print('\n'.join([' '.join(list(map(str,i))) for i in self.grid])) 
-        print('game over')
+        #print('game over')
  
 if __name__ == "__main__":
     game = Grid(5,5,5)
