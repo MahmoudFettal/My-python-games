@@ -3,12 +3,13 @@ import pygame, os
 
 class Settings():
     def __init__(self, lines, columns):
-        self.lines   = lines
-        self.columns = columns
-        self.screen_size = (105*self.lines, 105*self.columns) 
-        self.frames = ['U'] + list(map(str,range(9)))
-        print(self.frames)        
-        self.frames      = {frame : pygame.image.load(os.path.join('frames',f'{frame}.png')) for frame in ['U'] + list(map(str,range(9)))}
+        self.lines       = lines
+        self.columns     = columns
+        self.screen_size = (25*self.lines + 20, 25*self.columns + 60) 
+        self.frames      = {frame : pygame.image.load(os.path.join('frames',f'{frame}.png')) for frame in ['U','M','F','playing','lost','won'] + list(map(str,range(9)))}
+        self.flaged      = False
+        self.width       = 25
+        self.bg_color    = pygame.Color('#A1A1A1')
 
 
 class Cell():
@@ -16,23 +17,28 @@ class Cell():
         self.contact = 0 # the number of mines in contacts with this cell
         self.mine    = False
         self.covered = False 
+        self.flaged  = False
     def __repr__(self):
         if self.covered:
             return str(self.contact)
+        elif self.flaged:
+            return 'F'
         return 'U'
 
 class Grid():
     def __init__(self, lines, columns, n_mines):
-        self.lines   = lines
-        self.columns = columns
-        self.n_mines = n_mines # the number of mines
-        self.r_cells = lines*columns - n_mines # the number of the remainging free cells
-        self.grid    = [[Cell() for _ in range(columns)] for _ in range(lines)]
-        self.zeros   = []
-        self.over    = False
-        self.coords  = [[-1, -1],[-1, 0], [-1, 1],
-                        [ 0, -1],         [0, 1 ],
-                        [ 1, -1], [1, 0], [1, 1 ]]
+        self.lines    = lines
+        self.columns  = columns
+        self.n_mines  = n_mines # the number of mines
+        self.r_cells  = lines*columns - n_mines # the number of the remainging free cells
+        self.grid     = [[Cell() for _ in range(columns)] for _ in range(lines)]
+        self.zeros    = []
+        self.over     = False
+        self.coords   = [[-1, -1],[-1, 0], [-1, 1],
+                         [ 0, -1],         [0, 1 ],
+                         [ 1, -1], [1, 0], [1, 1 ]]
+        self.won      = False
+        self.c_flaged = 0
 
     def fill_mines(self):
         self.mines   = []
@@ -63,27 +69,16 @@ class Grid():
                 for a,b in self.coords:
                     if 0 <= a+i < self.lines and 0 <= b+j < self.columns and not self.grid[a+i][b+j].mine and not (a+i,b+j) in self.zeros:
                         self.uncover(a+i, b+j)
-    
+
     def make_move(self,x,y):
-        '''while True:
-            x,y = map(int, input().split())
-            if 0 <= x < self.lines and 0 <= y < self.columns and not self.grid[x][y].covered:
-                break  '''
         if self.grid[x][y].mine:
             self.over = True
         else:    
             self.uncover(x,y)
-
-    def show(self):
-        #self.mines_contact()
-        #print('\n'.join([' '.join([str(j.contact) for j in i]) for i in self.grid]))    
-        #print('\n'.join([' '.join(list(map(str,i))) for i in self.grid])) 
-        #while not self.over:
-            #self.make_move()
-        print('\n'.join([' '.join(list(map(str,i))) for i in self.grid])) 
-        #print('game over')
+            if self.r_cells == 0:
+                self.won = True
+                self.c_flaged = self.n_mines
  
 if __name__ == "__main__":
-    game = Grid(5,5,5)
+    game = Grid(9,9,10)
     game.fill_mines()
-    game.show()
