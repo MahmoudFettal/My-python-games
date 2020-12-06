@@ -1,5 +1,12 @@
+# written by Mahmoud Fettal
+# in 12/05/2020 (05/12/2020)
+
+#--------------------------------------- import phase ---------------------------------------#
+
 from random import randint
 import pygame, os
+
+#------------------------------------------- class ------------------------------------------#
 
 class Settings():
     def __init__(self, lines, columns):

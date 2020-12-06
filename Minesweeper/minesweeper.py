@@ -1,3 +1,8 @@
+# written by Mahmoud Fettal
+# in 12/05/2020 (05/12/2020)
+
+#--------------------------------------- import phase ---------------------------------------#
+
 from grid import Cell, Grid, Settings # we don't need the full module
 
 import pygame, sys, os # pygame to define images in the dict of images
