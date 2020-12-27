@@ -17,8 +17,8 @@ class Piece():
                       'downl' : [[-i,-i] for i in range(1,8)],
                       'upr'   : [[i,i] for i in range(1,8)],
                       'downr' : [[-i,i] for i in range(1,8)]} 
-        piece_moves = {'k' : [[[i,j]] for i in [-1, 1] for j in [-1, 1]] + [[[0,1],[0,-1],[1,0],[-1,0]]],
-                       'K' : [[[i,j]] for i in [-1, 1] for j in [-1, 1]] + [[[0,1],[0,-1],[1,0],[-1,0]]], 
+        piece_moves = {'k' : [[[i,j]] for i in [-1, 1] for j in [-1, 1]],
+                       'K' : [[[i,j]] for i in [-1, 1] for j in [-1, 1]], 
                        'p' : [[[1,0]]],
                        'P' : [[[-1,0]]],
                        'n' : [[[i,j],[j,i]] for i in [1,-1] for j in [2,-2]], 
