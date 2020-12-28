@@ -94,15 +94,12 @@ class Game():
                             pos = pygame.mouse.get_pos()
                             if 460 <= pos[0] <=620 and 35 <= pos[1] <= 75:
                                 self.grid = Grid()
+                                self.ended = False
                                 self.play()
 
-                #print(f'Game, Over!, your score was {self.grid.score}')
-                break
-            #print(f' move {self.grid.move} '.center(len(f'your score is {self.grid.score}')))
-            #print(f'your score is {self.grid.score}')
             self.update(screen)
             self.grid.move += 1
-        #print('Good Bye, see you next time!')
+
 
 if __name__ == "__main__":
     game = Game()
