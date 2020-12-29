@@ -56,7 +56,7 @@ class Board():
     
     def start(self):
         ids    = {i: 1 for i in 'r b n q k'.split()}
-        for i,j in enumerate('r n b q k b n r'.split()): 
+        for i,j in enumerate('r n b k q b n r'.split()): 
             white_piece, black_piece = Piece((0,i), 'w', ids[j], j), Piece((7,i), 'b', ids[j], j)
             white_pown , black_pown  = Piece((1,i), 'w', i+1, 'p'), Piece((6,i), 'b', i+1, 'p')
             self.pieces[str(white_piece)] = white_piece
@@ -84,7 +84,7 @@ class Board():
                     p_moves.append([x,y])
             a,b  = piece.position
             sign = 1 if piece.color == 'w' else -1 
-            if 0 <= a+sign < 8 and 0 <= b-1 < 8 and self.board[a+sign][b+1] != '' and self.pieces[self.board[a+sign][b+1]].color != piece.color:
+            if 0 <= a+sign < 8 and 0 <= b+1 < 8 and self.board[a+sign][b+1] != '' and self.pieces[self.board[a+sign][b+1]].color != piece.color:
                 p_moves.append([a+sign,b+1])
             if 0 <= a+sign < 8 and 0 <= b-1 < 8 and self.board[a+sign][b-1] != '' and self.pieces[self.board[a+sign][b-1]].color != piece.color:
                 p_moves.append([a+sign,b-1])

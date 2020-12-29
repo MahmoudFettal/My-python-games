@@ -6,7 +6,7 @@ class Chess():
         screen.blit(Settings.frames['border'], (75, 75)) 
         for i in range(8):
             for j in range(8):
-                screen.blit(Settings.frames[str((i%2 + j%2)%2)], (100 + j*Settings.width, 100 + i*Settings.width)) 
+                screen.blit(Settings.frames[str((i%2 + j%2 + 1)%2)], (100 + j*Settings.width, 100 + i*Settings.width)) 
                 piece = self.game.board[i][j]
                 if piece!= '':
                     piece = self.game.pieces[piece]
@@ -24,7 +24,7 @@ class Chess():
                 if [i,j] in cases:
                     screen.blit(Settings.frames['2'], (100 + j*Settings.width, 100 + i*Settings.width)) 
                 else:
-                    screen.blit(Settings.frames[str((i%2 + j%2)%2)], (100 + j*Settings.width, 100 + i*Settings.width)) 
+                    screen.blit(Settings.frames[str((i%2 + j%2 + 1)%2)], (100 + j*Settings.width, 100 + i*Settings.width)) 
                 piece = self.game.board[i][j]
                 if piece!= '':
                     piece = self.game.pieces[piece]
