@@ -96,11 +96,13 @@ class Grid():
                 for move in moves:
                     a,b = flip[way](x, move[0])
                     n,m = flip[way](x, move[1])
-                    if self.grid[n][m].value == 0 and  self.grid[a][b].value != 0  and direction == '+':
+                    if direction == '+' and self.grid[n][m].value == 0 and  self.grid[a][b].value != 0 :
                         swips += 1
                         zero_sawp += 1
                         self.grid[a][b].value, self.grid[n][m].value = self.grid[n][m].value, self.grid[a][b].value
-                    if self.grid[a][b].value == 0 and  self.grid[n][m].value != 0  and direction == '-':
+                    if direction == '-' and self.grid[a][b].value == 0 and  self.grid[n][m].value != 0 :
+                        print('error', self.grid[a][b].value, self.grid[n][m].value)
+                        print('error', a,b,n,m)
                         swips += 1
                         zero_sawp += 1
                         self.grid[a][b].value, self.grid[n][m].value = self.grid[n][m].value, self.grid[a][b].value

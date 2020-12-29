@@ -104,3 +104,6 @@ class Game():
 if __name__ == "__main__":
     game = Game()
     game.play()
+
+#--------------------- bugs -----------------------#
+# the left and up doesn't function properly and gives value even without mvt
