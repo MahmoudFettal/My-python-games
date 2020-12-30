@@ -1,5 +1,7 @@
 # My python games
  Here, in this repository i am storing all the games i developed and will develop using python and its modules
+ # Chess Board version 1.0 in the 12/29/2020
+![](https://github.com/MahmoudFettal/My-python-games/blob/main/chess_board/images/Chess%2012_29_2020%209_13_28%20AM.png)
 # Tic Tac Toe version 1.0 in the 12/25/2020
 ![](https://github.com/MahmoudFettal/My-python-games/blob/main/tic_tac_toe/gifs/tic%20tac%20toe.gif)
 # Minesweeper version 1.0 in the 12/05/2020
